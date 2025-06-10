@@ -1,5 +1,5 @@
 // src/App.jsx
-import LoginForm from './componentes/LoginForm';
+import LoginForm from './componentes/login';
 
 function App() {
   return (

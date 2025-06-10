@@ -1,72 +1,291 @@
-/* src/componentes/Dashboard.css */
-.role-card {
-  background: #f9f9f9;
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1.5rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* ======== GLOBAL ======== */
+body {
+  background: #f5f6fa;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.role-form {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  border-color: #ff9f31;
-
-}
-
-.role-form input {
-  flex: 1;
-  padding: 0.5rem;
-  font-size: 1rem;
-  outline: none;
-
-}
-
-.role-form button {
-  padding: 0.5rem 1rem;
-  background: #ff9f31;
+/* ======== NAVBAR ======== */
+.navbar {
+  width: 100%;
+  background: #1b263b;
+  padding: 0 2.8rem;
   color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 78px;
+  box-shadow: 0 2px 10px #dde6ed60;
+  margin-bottom: 2rem;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+}
+.navbar .logo {
+  font-weight: 700;
+  color: #60a3d9;
+  font-size: 1.17rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  flex: 1;
+  min-width: 170px;
+  text-align: left;
+  padding-left: 0.5em;
+}
+.navbar .nav-center {
+  display: flex;
+  flex: 2;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.navbar .nav-center a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+  font-size: 1.07rem;
+}
+.navbar .nav-center a:hover {
+  color: #60a3d9;
+}
+.navbar .user-info {
+  flex: 1;
+  min-width: 140px;
+  text-align: right;
+  font-size: 0.97rem;
+  color: #dde6ed;
+  white-space: nowrap;
+  padding-right: 0.5em;
+}
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1em 0.7em;
+    height: auto;
+    gap: 0.7em;
+  }
+  .navbar .logo,
+  .navbar .user-info {
+    text-align: center;
+    padding: 0;
+  }
+  .navbar .nav-center {
+    justify-content: center;
+    gap: 1.3rem;
+  }
 }
 
-.role-list .role-item {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ff9f31;
-}
-
-.role-list .role-item:last-child {
-  border-bottom: none;
-}
-
+/* ======== DASHBOARD ======== */
 .admin-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2.5rem;
   margin: 2rem auto;
-  max-width: 1200px;
+  max-width: 1300px;
 }
+
 .admin-card {
-  background: #f9f9f9;
-  border-radius: 8px;
-  padding: 1.5rem 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 12px;
+  padding: 2.1rem 2.2rem;
+  box-shadow: 0 4px 18px rgba(27,38,59,0.09), 0 1.5px 4px rgba(96,163,217,0.06);
+  min-width: 320px;
+  min-height: 340px;
+  border: 1px solid #dde6ed;
+  transition: box-shadow 0.2s;
 }
+
 .admin-card h2 {
-  margin-bottom: 1rem;
-  color: #ff9f31;
+  color: #1b263b;
+  font-size: 1.24rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.015em;
 }
+
+.role-form,
+.admin-card form {
+  display: flex;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.role-form input,
+.admin-card form input {
+  padding: 0.5rem 0.7rem;
+  font-size: 1rem;
+  border: 1.5px solid #60a3d9;
+  border-radius: 7px;
+  background: #f5f6fa;
+  outline: none;
+  transition: border 0.2s, background 0.2s;
+  flex: 1 1 120px;
+  color: #1b263b;
+}
+
+.role-form input:focus,
+.admin-card form input:focus {
+  border-color: #1b263b;
+  background: #fff;
+}
+
+.role-form button,
+.admin-card form button {
+  background: #60a3d9;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.18s;
+  box-shadow: 0 1px 4px #dde6ed60;
+}
+
+.role-form button:hover,
+.admin-card form button:hover {
+  background: #1b263b;
+}
+
+.role-list .role-item,
+.admin-card ul li {
+  padding: 0.45em 0;
+  border-bottom: 1px solid #dde6ed;
+  font-size: 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  color: #1b263b;
+}
+
 .admin-card ul {
   margin: 0;
-  padding-left: 1em;
+  padding: 0 0 0 0.5em;
+  list-style: none;
 }
-.admin-card ul li {
-  padding: 0.4em 0;
-  border-bottom: 1px solid #ff9f31;
-}
+
 .admin-card ul li:last-child {
   border-bottom: none;
+}
+
+.role-list .role-item button {
+  margin-top: 0.4em;
+  background: #f03e3e;
+  color: #fff;
+  border-radius: 6px;
+  border: none;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.role-list .role-item button:hover {
+  background: #b81b1b;
+}
+
+hr {
+  border: none;
+  border-bottom: 1.5px solid #dde6ed;
+  margin: 1.1em 0;
+}
+
+/* ======== LOGIN ======== */
+.login-container {
+  min-height: 100vh;
+  background: #f5f6fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(27,38,59,0.14);
+  padding: 2.5rem 2.7rem 2rem 2.7rem;
+  min-width: 340px;
+  border: 1.5px solid #dde6ed;
+}
+
+.login-card h1 {
+  color: #1b263b;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.8rem;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.login-card input {
+  padding: 0.65rem 0.8rem;
+  border-radius: 6px;
+  border: 1.5px solid #60a3d9;
+  font-size: 1rem;
+  background: #f5f6fa;
+  color: #1b263b;
+  transition: border 0.2s, background 0.2s;
+}
+
+.login-card input:focus {
+  border-color: #1b263b;
+  background: #fff;
+}
+
+.login-card button {
+  margin-top: 0.4em;
+  background: #60a3d9;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.65rem 1.1rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.07rem;
+  transition: background 0.18s;
+  box-shadow: 0 1px 4px #dde6ed60;
+}
+
+.login-card button:hover {
+  background: #1b263b;
+}
+
+.login-card .login-error {
+  color: #f03e3e;
+  padding: 0.3em 0;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-card {
+    min-width: unset;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1em 0.7em;
+    height: auto;
+    gap: 0.7em;
+  }
+  .navbar .logo,
+  .navbar .user-info {
+    text-align: center;
+    padding: 0;
+  }
+  .navbar .nav-center {
+    justify-content: center;
+    gap: 1.3rem;
+  }
+  .login-card {
+    min-width: 90vw;
+    padding: 1.7rem 0.7rem;
+  }
 }
