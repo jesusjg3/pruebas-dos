@@ -83,17 +83,6 @@ export default function Dashboard() {
       console.error(err);
     }
   };
-  const fetchEstados = async () => {
-    const res = await axios.get('http://localhost:8000/api/estados', {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    });
-    setEstados(res.data);
-  };
-
-  useEffect(() => {
-    fetchEstados();
-    // ...otros fetch
-  }, []);
 
   // Cargar nombre de usuario autenticado (ejemplo, debes adaptar a tu backend)
   useEffect(() => {
@@ -454,7 +443,7 @@ export default function Dashboard() {
             required
           >
             <option value="">Selecciona un hotel</option>
-            {hoteles.map(h => (
+            {hotels.map(h => (
               <option key={h.id} value={h.id}>{h.nombre}</option>
             ))}
           </select>
