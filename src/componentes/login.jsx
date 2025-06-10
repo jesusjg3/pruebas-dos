@@ -19,8 +19,8 @@ export default function Login({ onLogin }) {
       });
       // Guarda el token y llama onLogin si tu app lo necesita
       localStorage.setItem('token', res.data.token);
-      if (onLogin) onLogin(res.data.user); // Puedes borrar esto si tu app no lo usa
-      window.location.href = "/dashboard"; // Redirección directa tras login
+      if (onLogin) onLogin(res.data.user);
+      window.location.href = "/dashboard";
     } catch (err) {
       setError('Login incorrecto. Verifica tus datos.');
     }

@@ -190,38 +190,21 @@ export default function Dashboard() {
 
   const handleAddEmpleado = async e => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:8000/api/empleados', {
-        nombre: empleadoNombre,
-        apellido: empleadoApellido,
-        cedula: empleadoCedula,
-        fechanacimiento: empleadoNacimiento,
-        tiposangre: empleadoSangre,
-        hotel_id: empleadoHotel,
-        rols_id: empleadoRol,
-        estado_id: empleadoEstado,
-        correo: empleadoCorreo,
-        telefono: empleadoTelefono
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
-      Swal.fire('✔', 'Empleado creado', 'success');
-      setEmpleadoNombre('');
-      setEmpleadoApellido('');
-      setEmpleadoCedula('');
-      setEmpleadoNacimiento('');
-      setEmpleadoSangre('');
-      setEmpleadoHotel('');
-      setEmpleadoRol('');
-      setEmpleadoEstado('');
-      setEmpleadoCorreo('');
-      setEmpleadoTelefono('');
-      fetchEmpleados();
-    } catch (err) {
-      Swal.fire('Error', err.response?.data?.message || 'No se pudo crear empleado', 'error');
-    }
-  };
-
+    await axios.post('http://localhost:8000/api/empleados', {
+      nombre: empleadoNombre,
+      apellido: empleadoApellido,
+      cedula: empleadoCedula,
+      fechanacimiento: empleadoNacimiento,
+      tiposangre: empleadoSangre,
+      hotel_id: empleadoHotel,
+      rols_id: empleadoRol,
+      estado_id: empleadoEstado,
+      correo: empleadoCorreo,
+      telefono: empleadoTelefono,
+    }, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+  }
 
   // Handler para eliminar roles (igual puedes hacer para otros si quieres)
   const handleDeleteRol = async id => {
@@ -436,20 +419,6 @@ export default function Dashboard() {
             onChange={e => setEmpleadoSangre(e.target.value)}
             required
           />
-          <input
-            type="email"
-            placeholder="Correo"
-            value={empleadoCorreo}
-            onChange={e => setEmpleadoCorreo(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Teléfono"
-            value={empleadoTelefono}
-            onChange={e => setEmpleadoTelefono(e.target.value)}
-            required
-          />
           <select
             value={empleadoHotel}
             onChange={e => setEmpleadoHotel(e.target.value)}
@@ -480,6 +449,20 @@ export default function Dashboard() {
               <option key={es.id} value={es.id}>{es.nombreestado}</option>
             ))}
           </select>
+          <input
+            type="email"
+            placeholder="Correo"
+            value={empleadoCorreo}
+            onChange={e => setEmpleadoCorreo(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Teléfono"
+            value={empleadoTelefono}
+            onChange={e => setEmpleadoTelefono(e.target.value)}
+            required
+          />
           <button type="submit">Agregar empleado</button>
         </form>
         <hr />
