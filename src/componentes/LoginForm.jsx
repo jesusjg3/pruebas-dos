@@ -30,7 +30,7 @@ function LoginForm() {
           localStorage.setItem('token', res.data.token);
 
           // Redirigir al dashboard
-          navigate('componentes/dashboard');
+          navigate('/dashboard');
         });
       } else {
         Swal.fire({
