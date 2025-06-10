@@ -1,11 +1,10 @@
 // src/main.jsx
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import Dashboard from './componentes/dashboard';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('Login')).render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
