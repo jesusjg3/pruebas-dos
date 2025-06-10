@@ -150,7 +150,7 @@ export default function Dashboard() {
       await axios.post('http://localhost:8000/api/empleados', {
         nombre: empleadoNombre,
         apellido: empleadoApellido,
-        cargo: empleadoCargo
+        cargo: empleadoCargo // ID del rol
       }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
@@ -325,25 +325,33 @@ export default function Dashboard() {
               onChange={e => setEmpleadoApellido(e.target.value)}
               required
             />
-            <input
-              type="text"
-              placeholder="Cargo"
+            <select
               value={empleadoCargo}
               onChange={e => setEmpleadoCargo(e.target.value)}
               required
-            />
+            >
+              <option value="">Selecciona un rol</option>
+              {roles.map(r => (
+                <option key={r.id} value={r.id}>{r.nombrerol}</option>
+              ))}
+            </select>
             <button type="submit">Agregar empleado</button>
           </form>
           <hr />
           <ul>
-            {empleados.map(emp => (
-              <li key={emp.id} style={{ margin: "0.7em 0" }}>
-                <div>
-                  <strong>{emp.nombre} {emp.apellido}</strong>
-                </div>
-                <div style={{ color: '#607d8b' }}>Cargo: {emp.cargo}</div>
-              </li>
-            ))}
+            {empleados.map(emp => {
+              const rol = roles.find(r => String(r.id) === String(emp.cargo));
+              return (
+                <li key={emp.id} style={{ margin: "0.7em 0" }}>
+                  <div>
+                    <strong>{emp.nombre} {emp.apellido}</strong>
+                  </div>
+                  <div style={{ color: '#607d8b' }}>
+                    Cargo: {rol ? rol.nombrerol : 'Sin rol'}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
