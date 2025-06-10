@@ -41,3 +41,32 @@
 .role-list .role-item:last-child {
   border-bottom: none;
 }
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+.admin-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.admin-card h2 {
+  margin-bottom: 1rem;
+  color: #ff9f31;
+}
+.admin-card ul {
+  margin: 0;
+  padding-left: 1em;
+}
+.admin-card ul li {
+  padding: 0.4em 0;
+  border-bottom: 1px solid #ff9f31;
+}
+.admin-card ul li:last-child {
+  border-bottom: none;
+}
