@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import "./styles/login.css";
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ function LoginForm() {
           localStorage.setItem('token', res.data.token);
 
           // Redirigir al dashboard
-          navigate('componentes/dashboard');
+          navigate('/dashboard');
         });
       } else {
         Swal.fire({

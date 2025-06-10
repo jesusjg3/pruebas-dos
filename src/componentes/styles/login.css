@@ -1,0 +1,59 @@
+/* src/components/LoginForm.css */
+
+.login-form {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.733);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.login-form input {
+  width: 91%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #ff9f31;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  color: #fff;
+  background-color: #ff9f31;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login-form button:hover {
+  background-color: #ce7a0c;
+}
+
+.login-form button:active {
+  background-color: #ff9f31;
+}
+
+@media (max-width: 500px) {
+  .login-form {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+}
