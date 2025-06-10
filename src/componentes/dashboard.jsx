@@ -12,7 +12,7 @@ export default function Dashboard() {
 
   const fetchRoles = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/roles', {
+      const res = await axios.get('http://localhost:8000/api/rols', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setRoles(res.data);
@@ -28,7 +28,7 @@ export default function Dashboard() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/roles', { name, description: desc }, {
+      await axios.post('http://localhost:8000/api/rols', { name, description: desc }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       Swal.fire('✔', 'Rol creado', 'success');
