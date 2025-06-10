@@ -8,11 +8,19 @@ export default function Dashboard() {
   // Estados para las listas
   const [roles, setRoles] = useState([]);
   const [hotels, setHotels] = useState([]);
+  const [hoteles, setHoteles] = useState([]);
   const [users, setUsers] = useState([]);
+
+  const [estados, setEstados] = useState([]);
   const [empleados, setEmpleados] = useState([]);
   const [usuario, setUsuario] = useState(null);
 
+
   // Estados para formularios
+  const [estadoNombre, setEstadoNombre] = useState('');
+  const [estadoDescripcion, setEstadoDescripcion] = useState('');
+  const [empleadoNombre, setEmpleadoNombre] = useState('');
+  const [empleadoApellido, setEmpleadoApellido] = useState('');
   const [roleName, setRoleName] = useState('');
   const [roleDesc, setRoleDesc] = useState('');
   const [hotelNombre, setHotelNombre] = useState('');
@@ -21,9 +29,15 @@ export default function Dashboard() {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userEmpleadoId, setUserEmpleadoId] = useState('');
-  const [empleadoNombre, setEmpleadoNombre] = useState('');
-  const [empleadoApellido, setEmpleadoApellido] = useState('');
-  const [empleadoCargo, setEmpleadoCargo] = useState('');
+  const [empleadoCedula, setEmpleadoCedula] = useState('');
+  const [empleadoNacimiento, setEmpleadoNacimiento] = useState('');
+  const [empleadoSangre, setEmpleadoSangre] = useState('');
+  const [empleadoHotel, setEmpleadoHotel] = useState('');
+  const [empleadoRol, setEmpleadoRol] = useState('');
+  const [empleadoEstado, setEmpleadoEstado] = useState('');
+  const [empleadoCorreo, setEmpleadoCorreo] = useState('');
+  const [empleadoTelefono, setEmpleadoTelefono] = useState('');
+
 
   // Fetch functions
   const fetchRoles = async () => {
@@ -69,6 +83,17 @@ export default function Dashboard() {
       console.error(err);
     }
   };
+  const fetchEstados = async () => {
+    const res = await axios.get('http://localhost:8000/api/estados', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+    setEstados(res.data);
+  };
+
+  useEffect(() => {
+    fetchEstados();
+    // ...otros fetch
+  }, []);
 
   // Cargar nombre de usuario autenticado (ejemplo, debes adaptar a tu backend)
   useEffect(() => {
@@ -122,6 +147,23 @@ export default function Dashboard() {
     }
   };
 
+  const handleAddEstado = async e => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:8000/api/estados', {
+        nombreestado: estadoNombre,
+        descripcion: estadoDescripcion,
+      }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      Swal.fire('✔', 'Estado creado', 'success');
+      setEstadoNombre('');
+      setEstadoDescripcion('');
+      fetchEstados(); // asegúrate de tener esta función para recargar los estados
+    } catch (err) {
+      Swal.fire('Error', err.response?.data?.message || 'No se pudo crear estado', 'error');
+    }
+  };
   const handleAddUser = async e => {
     e.preventDefault();
     try {
@@ -150,19 +192,34 @@ export default function Dashboard() {
       await axios.post('http://localhost:8000/api/empleados', {
         nombre: empleadoNombre,
         apellido: empleadoApellido,
-        cargo: empleadoCargo // ID del rol
+        cedula: empleadoCedula,
+        fechanacimiento: empleadoNacimiento,
+        tiposangre: empleadoSangre,
+        hotel_id: empleadoHotel,
+        rols_id: empleadoRol,
+        estado_id: empleadoEstado,
+        correo: empleadoCorreo,
+        telefono: empleadoTelefono
       }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       Swal.fire('✔', 'Empleado creado', 'success');
       setEmpleadoNombre('');
       setEmpleadoApellido('');
-      setEmpleadoCargo('');
+      setEmpleadoCedula('');
+      setEmpleadoNacimiento('');
+      setEmpleadoSangre('');
+      setEmpleadoHotel('');
+      setEmpleadoRol('');
+      setEmpleadoEstado('');
+      setEmpleadoCorreo('');
+      setEmpleadoTelefono('');
       fetchEmpleados();
     } catch (err) {
       Swal.fire('Error', err.response?.data?.message || 'No se pudo crear empleado', 'error');
     }
   };
+
 
   // Handler para eliminar roles (igual puedes hacer para otros si quieres)
   const handleDeleteRol = async id => {
@@ -307,53 +364,135 @@ export default function Dashboard() {
           </ul>
         </div>
 
-        {/* Empleados */}
         <div className="admin-card">
-          <h2>Empleados</h2>
-          <form onSubmit={handleAddEmpleado} className="role-form">
+          <h2>Estados</h2>
+          <form onSubmit={handleAddEstado} className="role-form">
             <input
               type="text"
-              placeholder="Nombre"
-              value={empleadoNombre}
-              onChange={e => setEmpleadoNombre(e.target.value)}
+              placeholder="Nombre del estado"
+              value={estadoNombre}
+              onChange={e => setEstadoNombre(e.target.value)}
               required
             />
             <input
               type="text"
-              placeholder="Apellido"
-              value={empleadoApellido}
-              onChange={e => setEmpleadoApellido(e.target.value)}
+              placeholder="Descripción"
+              value={estadoDescripcion}
+              onChange={e => setEstadoDescripcion(e.target.value)}
               required
             />
-            <select
-              value={empleadoCargo}
-              onChange={e => setEmpleadoCargo(e.target.value)}
-              required
-            >
-              <option value="">Selecciona un rol</option>
-              {roles.map(r => (
-                <option key={r.id} value={r.id}>{r.nombrerol}</option>
-              ))}
-            </select>
-            <button type="submit">Agregar empleado</button>
+            <button type="submit">Crear estado</button>
           </form>
           <hr />
           <ul>
-            {empleados.map(emp => {
-              const rol = roles.find(r => String(r.id) === String(emp.cargo));
-              return (
-                <li key={emp.id} style={{ margin: "0.7em 0" }}>
-                  <div>
-                    <strong>{emp.nombre} {emp.apellido}</strong>
-                  </div>
-                  <div style={{ color: '#607d8b' }}>
-                    Cargo: {rol ? rol.nombrerol : 'Sin rol'}
-                  </div>
-                </li>
-              );
-            })}
+            {estados.map(est => (
+              <li key={est.id}>
+                <strong>{est.nombreestado}</strong> - {est.descripcion}
+              </li>
+            ))}
           </ul>
         </div>
+
+        {/* Empleados */}
+
+      </div>
+      <div className="admin-card">
+        <h2>Empleados</h2>
+        <form onSubmit={handleAddEmpleado} className="role-form">
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={empleadoNombre}
+            onChange={e => setEmpleadoNombre(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Apellido"
+            value={empleadoApellido}
+            onChange={e => setEmpleadoApellido(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Cédula"
+            value={empleadoCedula}
+            onChange={e => setEmpleadoCedula(e.target.value)}
+            required
+          />
+          <input
+            type="date"
+            placeholder="Fecha de nacimiento"
+            value={empleadoNacimiento}
+            onChange={e => setEmpleadoNacimiento(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Tipo de sangre"
+            value={empleadoSangre}
+            onChange={e => setEmpleadoSangre(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Correo"
+            value={empleadoCorreo}
+            onChange={e => setEmpleadoCorreo(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Teléfono"
+            value={empleadoTelefono}
+            onChange={e => setEmpleadoTelefono(e.target.value)}
+            required
+          />
+          <select
+            value={empleadoHotel}
+            onChange={e => setEmpleadoHotel(e.target.value)}
+            required
+          >
+            <option value="">Selecciona un hotel</option>
+            {hoteles.map(h => (
+              <option key={h.id} value={h.id}>{h.nombre}</option>
+            ))}
+          </select>
+          <select
+            value={empleadoRol}
+            onChange={e => setEmpleadoRol(e.target.value)}
+            required
+          >
+            <option value="">Selecciona un rol</option>
+            {roles.map(r => (
+              <option key={r.id} value={r.id}>{r.nombrerol}</option>
+            ))}
+          </select>
+          <select
+            value={empleadoEstado}
+            onChange={e => setEmpleadoEstado(e.target.value)}
+            required
+          >
+            <option value="">Selecciona un estado</option>
+            {estados.map(es => (
+              <option key={es.id} value={es.id}>{es.nombreestado}</option>
+            ))}
+          </select>
+          <button type="submit">Agregar empleado</button>
+        </form>
+        <hr />
+        <ul>
+          {empleados.map(emp => (
+            <li key={emp.id} style={{ margin: "0.7em 0" }}>
+              <div>
+                <strong>{emp.nombre} {emp.apellido}</strong>
+              </div>
+              <div style={{ color: '#607d8b' }}>
+                Cargo: {emp.rol ? emp.rol.nombrerol : 'Sin rol'}
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
