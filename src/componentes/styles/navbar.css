@@ -1,0 +1,25 @@
+/* src/componentes/Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  background-color: #ff9f31;
+  color: #fff;
+}
+.navbar-logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.logout-btn {
+  background: #fff;
+  color: #000000;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout-btn:hover {
+  background: #e0e0e0;
+}
