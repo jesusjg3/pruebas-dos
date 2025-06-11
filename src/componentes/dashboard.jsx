@@ -8,7 +8,6 @@ export default function Dashboard() {
   // Estados para las listas
   const [roles, setRoles] = useState([]);
   const [hotels, setHotels] = useState([]);
-  const [hoteles, setHoteles] = useState([]);
   const [users, setUsers] = useState([]);
 
   const [estados, setEstados] = useState([]);
@@ -72,6 +71,19 @@ export default function Dashboard() {
       console.error(err);
     }
   };
+
+  const fetchEstados = async () => {
+    const res = await axios.get('http://localhost:8000/api/estados', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+    setEstados(res.data);
+  };
+
+  useEffect(() => {
+    fetchEstados();
+    // ...otros fetch
+  }, []);
+
 
   const fetchEmpleados = async () => {
     try {
@@ -153,6 +165,7 @@ export default function Dashboard() {
       Swal.fire('Error', err.response?.data?.message || 'No se pudo crear estado', 'error');
     }
   };
+
   const handleAddUser = async e => {
     e.preventDefault();
     try {
